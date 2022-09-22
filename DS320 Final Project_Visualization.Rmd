@@ -1,0 +1,42 @@
+
+
+```{r}
+# clean up the RStudio environment 
+rm(list = ls())
+
+# load all packages here: `mosaic`, `tidyverse`, `lubridate`, and all others used
+library(mosaic)
+library(lubridate)  
+library(ggplot2)
+library(tidyverse)
+
+# Upload Final_Join csv file into R studio
+Final_Join <- read_csv("Final_Join.csv")
+```
+
+### Visualization
+
+```{r}
+# Rename variable name according to R programming Style Guide
+Modified_Final_Join <-
+  Final_Join %>%
+  rename("GDP" = "Economy (GDP per Capita)",
+         "Suicide_Rates" = "suicide_rate(%)")
+
+Modified_Final_Join
+```
+```{r}
+# Time to visualize
+ggplot(data = Modified_Final_Join, 
+       aes(x = GDP, y = Suicide_Rates)) + 
+  geom_point()  +
+  ggtitle("GDP vs. Suicide_Rates in 2015") +
+  geom_smooth(method='lm')
+
+# Regression line
+#abline(lm(Suicide_Rates ~ GDP), col = "red", lwd = 3)
+
+# Pearson correlation
+#text(paste("Correlation:", round(cor(x, y), 2)), x = 25, y = 95)
+```
+
